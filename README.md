@@ -17,21 +17,39 @@ The slope of the linear model **is not** considered to be zero because the p-val
 
 This linear model does predict mpg of MrchaCar prototypes effectively because r-squared of 0.7149 indicates a strong positive linear correlation. 
 
+![](Resources/Capture1.PNG)
+
 ## Summary Statistics on Suspension Coils
 
-write a short summary using screenshots from your total_summary and lot_summary dataframes, and address the following question:
+When looking at all lots, the variance suggests that the current manufacturing data meets the 100 pounds per square inch limitation. However, when we look at each lot individually, we can see that the third lot shows a higher variance and exceeds the 100 PSI requirement. 
 
-The design specifications for the MechaCar suspension coils dictate that the variance of the suspension coils must not exceed 100 pounds per square inch. Does the current manufacturing data meet this design specification for all manufacturing lots in total and each lot individually? Why or why not?
+![](Resources/Capture2.PNG)
+
+![](Resources/Capture3.PNG)
 
 ## T-Tests on Suspension Coils
 
-briefly summarize your interpretation and findings for the t-test results. Include screenshots of the t-test to support your summary.
+Since the p-value for the entire lot equals 0.06, we fail to reject the null hypothesis at a significance level of 0.05.
+The same applies to lots 1 and 2; however, lot 3 had a p-value of 0.04168 meaning that we can reject the null hypothesis.
+
+![](Resources/Capture4.PNG)
+![](Resources/Capture5.PNG)
+![](Resources/Capture6.PNG)
+![](Resources/Capture7.PNG)
 
 ## Study Design: MechaCar vs Competition
 
 Write a short description of a statistical study that can quantify how the MechaCar performs against the competition. In your study design, think critically about what metrics would be of interest to a consumer: for a few examples, cost, city or highway fuel efficiency, horse power, maintenance cost, or safety rating.
 In your description, address the following questions:
-What metric or metrics are you going to test?
-What is the null hypothesis or alternative hypothesis?
-What statistical test would you use to test the hypothesis? And why?
-What data is needed to run the statistical test?
+
+**What metric or metrics are you going to test?**
+
+
+**What is the null hypothesis or alternative hypothesis?**
+
+
+**What statistical test would you use to test the hypothesis? And why?**
+
+
+**What data is needed to run the statistical test?**
+
