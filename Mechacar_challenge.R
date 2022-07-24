@@ -1,36 +1,47 @@
+#load packages
 library(dplyr)
+library(tidyverse)
 
-### DELIVERABLE 1 ###
-# Import the data
-mecha_car_mpg <- read.csv(file='MechaCar_mpg.csv',check.names = F, stringsAsFactors = F)
+### Deliverable 1 ###
 
-# Perform linear regression that predicts the mpg of MechaCar prototypes
-lm(mpg ~ vehicle_length + vehicle_weight + spoiler_angle + ground_clearance + AWD, mecha_car_mpg)
-summary(lm(mpg ~ vehicle_length + vehicle_weight + spoiler_angle + ground_clearance + AWD, mecha_car_mpg))
-# p-value: 5.35e-11
-# r-squared: 0.6825
+#Import and read the csv file
+mecha_car <- read.csv(file = 'MechaCar_mpg.csv', check.names = F, stringsAsFactors = F)
 
-### DELIVERABLE 2 ###
-# Import the data
-sus_coil <- read.csv(file='Suspension_Coil.csv', check.names = F, stringsAsFactors = F)
-# Create a summary data frame
-total_summary <- sus_coil %>% summarize(Mean = mean(PSI), Median = median(PSI), Variance = var(PSI), SD = sd(PSI))
-# Create a summary data frame grouped by Manufacturing Lot
-lot_summary <- sus_coil %>% group_by(Manufacturing_Lot) %>% summarize(Mean = mean(PSI), Median = median(PSI),Variance = var(PSI), SD = sd(PSI))
+#linear regression for all variables
+lm(mpg ~ vehicle_weight + 
+     spoiler_angle + ground_clearance + AWD + vehicle_length,data=mecha_car)
+
+#p-value and r-squared  for all variables
+summary(lm(mpg ~ vehicle_weight + 
+             spoiler_angle + ground_clearance + AWD + vehicle_length,data=mecha_car))
+
+### Deliverable 2 ###
+
+#Import and read the csv file
+suspen_coil <- read.csv(file = 'Suspension_Coil.csv', check.names = F, stringsAsFactors = F)
+
+#Create total summary df, using summarize()
+total_summary <-  suspen_coil %>% summarize(Mean=mean(PSI),Median=median(PSI),Variance=var(PSI),SD=sd(PSI), .groups = 'keep')
 
 
-### DELIVERABLE 3 ###
-# Determine if the PSI across all manufacturing lots is statistically different from the population mean of 1,500 pounds per square inch
-t.test(sus_coil$PSI, mu = 1500)
+#Create lot summary df, using group_by() & summarize()
+lot_summary <- suspen_coil %>% group_by(Manufacturing_Lot) %>% summarize(Mean=mean(PSI),Median=median(PSI),Variance=var(PSI),SD=sd(PSI), .groups = 'keep')
 
-# Determine if the PSI for each manufacturing lot is statistically different from the population mean of 1,500 pounds per square inch
-Lot1 = subset(sus_coil, Manufacturing_Lot == 'Lot1')
-Lot2 = subset(sus_coil, Manufacturing_Lot == 'Lot2')
-Lot3 = subset(sus_coil, Manufacturing_Lot == 'Lot3')
 
-t.test(Lot1$PSI, mu = 1500) 
-# p-value = 1
-t.test(Lot2$PSI, mu = 1500)
-# p-value = 0.6072
-t.test(Lot3$PSI, mu = 1500)
-# p-value = 0.04168
+###  Deliverable 3 ###
+
+#t-test across all manufacturing lots against the population mean = 1500 PSI
+t.test(suspen_coil$PSI, mu=1500)
+
+
+#t-test lot1 against population mean = 1500 PSI
+lot1 <- suspen_coil %>% subset(Manufacturing_Lot=="Lot1")
+t.test(lot1$PSI, mu=1500)
+
+#t-test lot2 against population mean = 1500 PSI
+lot2 <- suspen_coil %>% subset(Manufacturing_Lot=="Lot2")
+t.test(lot2$PSI, mu=1500)
+
+#t-test lot3 against population mean = 1500 PSI
+lot3 <- suspen_coil %>% subset(Manufacturing_Lot=="Lot3")
+t.test(lot3$PSI, mu=1500)
